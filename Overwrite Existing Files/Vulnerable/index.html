@@ -13,23 +13,32 @@
 
     <script>
         function uploadFile() {
-            var formData = new FormData();
             var fileInput = document.getElementById('fileInput');
             var file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            var formData = new FormData();
             formData.append('file', file);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/upload', true);
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
+            fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
                     document.getElementById('status').innerText = 'File uploaded successfully!';
                 } else {
                     document.getElementById('status').innerText = 'File upload failed!';
                 }
-            };
-
-            xhr.send(formData);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').innerText = 'File upload failed!';
+            });
         }
     </script>
 </body>

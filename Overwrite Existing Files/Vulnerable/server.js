@@ -1,9 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
 const app = express();
+
+app.use(cors());
+
 const port = 3000;
 
 const storage = multer.diskStorage({

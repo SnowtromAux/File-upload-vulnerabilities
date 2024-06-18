@@ -1,4 +1,5 @@
 document.getElementById('start-attack').addEventListener('click', () => {
+    document.getElementById('start-attack').innerText = "Attack Started";
     const status = document.getElementById('status');
     let attackInterval;
 
@@ -15,11 +16,12 @@ document.getElementById('start-attack').addEventListener('click', () => {
             });
     };
 
-    attackInterval = setInterval(sendRequest, 100); // Send a request every 100ms
+    attackInterval = setInterval(sendRequest, 10); // Send a request every 100ms
 
     // Stop the attack after 10 seconds
     setTimeout(() => {
         clearInterval(attackInterval);
         status.innerText = 'Attack stopped.';
+        document.getElementById('start-attack').innerText = "Start Attack";
     }, 10000);
 });
